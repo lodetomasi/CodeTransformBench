@@ -198,6 +198,17 @@ class TransformationPipeline:
                 }
 
             except Exception as e:
+                error_msg = str(e)
+
+                # Check for fatal errors that should stop the pipeline
+                if any(fatal in error_msg for fatal in [
+                    "INSUFFICIENT FUNDS",
+                    "INVALID API KEY",
+                    "FATAL API error"
+                ]):
+                    logger.critical(f"⚠️  FATAL ERROR - Stopping pipeline: {error_msg}")
+                    raise  # Propagate fatal error to stop pipeline
+
                 logger.error(f"{func_id}: Error during transformation attempt {attempt}: {e}")
                 if attempt < max_retries:
                     await asyncio.sleep(2 ** attempt)  # Exponential backoff

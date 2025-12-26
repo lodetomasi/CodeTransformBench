@@ -1,55 +1,62 @@
-# Model configurations for CodeTransformBench
-# Organized by tier based on cost and capabilities
-# All models accessible via OpenRouter API
+# Model configurations for CodeTransformBench - Phase 4 (2025)
+# Selected based on OpenRouter popularity, performance, and cost
+# Coverage: 5 providers (x-ai, google, deepseek, anthropic, openai)
 
 tier1:
-  # Budget: 40% (€800)
-  # Purpose: Baseline and code-specialized models
-  # Cost: ~€0.0002-0.0003 per 1K tokens
+  # Budget: 60% (€1,200)
+  # Purpose: High-volume testing with cost-effective models
+  # Cost: ~€0.12-0.24 per 1M tokens (output)
 
-  - id: meta-llama/llama-3.1-8b-instruct
-    name: Llama 3.1 8B
-    cost_per_1k_tokens: 0.0002
-    description: Fast, cost-effective open model for baseline comparisons
+  - id: x-ai/grok-code-fast-1
+    name: Grok Code Fast 1
+    cost_per_1k_tokens: 0.0002  # $0.20/M input, $1.50/M output
+    description: "#1 most popular on OpenRouter, specialized for coding"
 
-  - id: mistralai/mistral-7b-instruct
-    name: Mistral 7B Instruct
-    cost_per_1k_tokens: 0.00025
-    description: Efficient open model, good code capabilities
+  - id: google/gemini-2.5-flash
+    name: Gemini 2.5 Flash
+    cost_per_1k_tokens: 0.000125  # $0.125/M input, $0.50/M output
+    description: "#3 most popular, excellent value for money"
+
+  - id: deepseek/deepseek-chat
+    name: DeepSeek V3.2
+    cost_per_1k_tokens: 0.00024  # $0.24/M input, $0.84/M output
+    description: "#5 most popular, +61% growth, code specialist"
 
 tier2:
   # Budget: 30% (€600)
-  # Purpose: Powerful mid-tier models for validation
-  # Cost: ~€0.0015-0.0018 per 1K tokens
+  # Purpose: Mid-tier validation with strong performers
+  # Cost: ~€1.75-3 per 1M tokens (output)
 
-  - id: meta-llama/llama-3.1-70b-instruct
-    name: Llama 3.1 70B
-    cost_per_1k_tokens: 0.0015
-    description: Larger Llama variant, better reasoning
+  - id: anthropic/claude-sonnet-4.5
+    name: Claude Sonnet 4.5
+    cost_per_1k_tokens: 0.003  # $3/M input, $15/M output
+    description: "#2 most popular on OpenRouter, excellent balance"
 
-  - id: qwen/qwen-2.5-coder-32b-instruct
-    name: Qwen 2.5 Coder 32B
-    cost_per_1k_tokens: 0.0018
-    description: Alibaba's code model, strong multi-language support
+  - id: openai/gpt-5.2
+    name: GPT-5.2
+    cost_per_1k_tokens: 0.00175  # $1.75/M input, $14/M output
+    description: "Latest OpenAI model, strong multi-language coding"
 
 tier3:
-  # Budget: 30% (€600)
-  # Purpose: SOTA scores and quality ceiling
-  # Cost: ~€0.01-0.015 per 1K tokens
+  # Budget: 10% (€200)
+  # Purpose: SOTA benchmarks and quality ceiling
+  # Cost: ~€10-75 per 1M tokens (output)
 
-  - id: anthropic/claude-3.5-sonnet
-    name: Claude 3.5 Sonnet
-    cost_per_1k_tokens: 0.015
-    description: Anthropic's latest, strong code understanding
+  - id: anthropic/claude-opus-4.5
+    name: Claude Opus 4.5
+    cost_per_1k_tokens: 0.015  # $15/M input, $75/M output
+    description: "Top SWE-bench performance (80.9%), SOTA quality"
 
-  - id: openai/gpt-4-turbo
-    name: GPT-4 Turbo
-    cost_per_1k_tokens: 0.01
-    description: OpenAI flagship, excellent at complex transformations
+  - id: google/gemini-2.5-pro
+    name: Gemini 2.5 Pro
+    cost_per_1k_tokens: 0.00125  # $1.25/M input, $10/M output
+    description: "Best value SOTA model, strong on complex tasks"
 
-# Note: Actual costs may vary based on:
-# - Input vs output tokens (some models charge differently)
-# - OpenRouter markup (~10%)
-# - Promotions or pricing changes
+# Research Notes:
+# - Total: 7 models × 56 functions × 3 tasks × 3 intensities = 3,528 transformations
+# - Provider diversity: x-ai (1), google (2), deepseek (1), anthropic (2), openai (1)
+# - Popularity range: #1, #2, #3, #5, #7, #15 on OpenRouter leaderboard (Dec 2025)
+# - Cost range: $0.125/M (Gemini Flash) → $75/M (Claude Opus) output tokens
 #
-# Monitor real costs via cost_tracking table and adjust if needed
+# Model IDs verified as of December 2025 via OpenRouter
+# Actual costs may vary based on input/output token ratio

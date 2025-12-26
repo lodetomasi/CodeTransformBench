@@ -221,12 +221,23 @@ class OpenRouterClient:
                     await asyncio.sleep(2 ** attempt)  # Exponential backoff
 
             except aiohttp.ClientResponseError as e:
-                if e.status == 429:  # Rate limit
+                # Fatal errors that should not be retried
+                if e.status in [400, 401, 402, 403]:
+                    error_msg = f"FATAL API error {e.status}: {e.message}"
+                    if e.status == 402:
+                        error_msg = "⚠️  INSUFFICIENT FUNDS on OpenRouter! Please add credits."
+                    elif e.status == 401:
+                        error_msg = "⚠️  INVALID API KEY! Check OPENROUTER_API_KEY."
+                    logger.error(error_msg)
+                    raise Exception(error_msg)  # Stop immediately, don't retry
+
+                # Retryable errors
+                elif e.status == 429:  # Rate limit
                     last_error = "Rate limit exceeded"
                     wait_time = 2 ** attempt
                     logger.warning(f"Rate limited, waiting {wait_time}s (attempt {attempt + 1}/{self.max_retries})")
                     await asyncio.sleep(wait_time)
-                else:
+                else:  # 500, 503, etc. - server errors
                     last_error = f"HTTP {e.status}"
                     logger.error(f"API error: {e}")
                     if attempt < self.max_retries - 1:
