@@ -1,0 +1,34 @@
+Generate a comprehensive property-based test suite for the following Python function using pytest and hypothesis.
+
+Function to test:
+```python
+{code}
+```
+
+Requirements:
+1. **Framework**: Use pytest + hypothesis for property-based testing
+2. **Coverage Target**: Achieve ≥80% branch coverage
+3. **Test Categories**:
+   - Property-based tests using @given decorator
+   - Edge cases (empty inputs, boundary values, special characters)
+   - Type validation tests
+   - Error handling tests (expected exceptions)
+4. **Execution Speed**: All tests must complete in <100ms
+5. **Determinism**: Use fixed seed: @seed(42) for reproducibility
+6. **Assertions**: Use clear, descriptive assertions with helpful error messages
+
+Test Structure:
+- Import necessary modules (pytest, hypothesis.strategies)
+- Include the function under test (copy it into the test file)
+- Write 5-10 comprehensive test cases
+- Use appropriate strategies (st.integers(), st.text(), st.lists(), etc.)
+- Handle both success cases and failure cases
+
+CRITICAL OUTPUT REQUIREMENTS:
+- Return ONLY executable Python test code
+- NO explanations, reasoning, or commentary
+- NO markdown code blocks (no ```)
+- NO preamble like "Here is..." or "The test suite is..."
+- Start directly with the first import statement
+- End with the last test function
+- The output must be directly executable with: pytest <filename>.py

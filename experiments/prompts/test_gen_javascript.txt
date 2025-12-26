@@ -1,0 +1,35 @@
+Generate a comprehensive property-based test suite for the following JavaScript function using Jest and fast-check.
+
+Function to test:
+```javascript
+{code}
+```
+
+Requirements:
+1. **Framework**: Use Jest + fast-check for property-based testing
+2. **Coverage Target**: Achieve ≥80% branch coverage
+3. **Test Categories**:
+   - Property-based tests using fc.assert(fc.property(...))
+   - Edge cases (null, undefined, empty, boundary values)
+   - Type validation tests
+   - Error handling tests (expect().toThrow())
+4. **Execution Speed**: All tests must complete in <100ms
+5. **Determinism**: Use fixed seed: fc.configureGlobal({ seed: 42 })
+6. **Assertions**: Use Jest matchers (expect, toBe, toEqual, toThrow)
+
+Test Structure:
+- Import dependencies (fast-check as fc)
+- Include the function under test (copy it into the test file)
+- Configure global seed for reproducibility
+- Write 5-10 comprehensive test cases using describe/test blocks
+- Use appropriate arbitraries (fc.integer(), fc.string(), fc.array(), etc.)
+- Handle both success cases and error cases
+
+CRITICAL OUTPUT REQUIREMENTS:
+- Return ONLY executable JavaScript test code
+- NO explanations, reasoning, or commentary
+- NO markdown code blocks (no ```)
+- NO preamble like "Here is..." or "The test suite is..."
+- Start directly with the first require/import statement
+- End with the last test case closing brace
+- The output must be directly executable with: jest <filename>.test.js

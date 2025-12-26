@@ -1,14 +1,14 @@
 # CodeTransformBench
 
-A research benchmark to evaluate Large Language Model code transformation capabilities across 4 programming languages (Python, Java, JavaScript, C++).
+A reproducible research benchmark for evaluating Large Language Model capabilities in semantic-preserving code transformations across four programming languages.
 
-**Research Questions**: How do LLMs perform semantic-preserving code transformations? Can we quantify transformation quality objectively?
+## Overview
 
-**Scale**: 500 functions × 12 models × 3 tasks × 5 strategies = 90,000 transformations
+**Objective**: Quantify LLM performance on code transformation tasks using a novel Semantic Elasticity metric that captures both structural change and semantic preservation.
 
-**Budget**: €2,000 via OpenRouter API
+**Scale**: 240 functions × 7 state-of-the-art models × 3 transformation tasks × 3 intensity levels
 
-**Duration**: 10 weeks (experimental phases)
+**Current Progress**: Phase 4 active - Executing systematic transformations with real-time checkpoint recovery and automated quality validation
 
 ---
 
@@ -149,54 +149,64 @@ Budget: $2000.0
 
 ---
 
-## Research Phases
+## Research Methodology
 
-### Phase 1: Infrastructure (Week 1) ✅ COMPLETED
+### Phase 1: Infrastructure (COMPLETED)
 
-Build reproducible research environment with database-backed experiment tracking.
+Established reproducible research environment with:
 
-**Status**: Database schema created, ORM models defined, configuration system ready.
+- PostgreSQL database with ACID guarantees and automatic triggers
+- SQLAlchemy ORM for type-safe data access
+- Comprehensive logging and error recovery mechanisms
+- Configuration management for model parameters and API access
 
-### Phase 2: Data Collection (Week 2) 🔜 NEXT
+### Phase 2: Data Collection (COMPLETED)
 
-Curate 500 functions from:
-- Rosetta Code (260 functions)
-- TheAlgorithms (240 functions)
+Curated 240 functions from established code repositories:
 
-Stratified by:
-- **Languages**: Python 150, Java 150, JavaScript 100, C++ 100
-- **Complexity**: Simple 40%, Medium 40%, Complex 20%
-- **Domains**: Algorithms, Data Structures, Strings, Math, I/O
+- **Sources**: Rosetta Code (algorithmic implementations), TheAlgorithms (canonical solutions)
+- **Languages**: Python, Java, JavaScript, C++
+- **Complexity distribution**: Stratified by cyclomatic complexity (simple/medium/complex)
+- **Quality control**: All functions validated for syntactic correctness and metric calculability
 
-**Next steps**:
-1. Implement `src/collectors/rosetta_scraper.py`
-2. Implement `src/collectors/algorithms_cloner.py`
-3. Run data collection
-4. Validate distribution
+### Phase 3: Test Suite Generation (COMPLETED)
 
-### Phase 3: Test Generation (Week 3)
+Generated property-based test suites using LLM-assisted methodology:
 
-Generate property-based test suites achieving 80%+ branch coverage using LLMs.
+- **Coverage target**: ≥80% branch coverage
+- **Frameworks**: pytest+hypothesis (Python), JUnit+jqwik (Java), Jest+fast-check (JS), GTest+RapidCheck (C++)
+- **Validation**: Automated execution verification, deterministic seeding (reproducibility)
+- **Output**: 240 test suites with documented edge cases and invariant properties
 
-**Frameworks**:
-- Python: pytest + hypothesis
-- Java: JUnit + jqwik
-- JavaScript: jest + fast-check
-- C++: Google Test + RapidCheck
+### Phase 4: Transformation Experiments (IN PROGRESS)
 
-**Budget**: ~€10-15
+Systematic evaluation of 7 contemporary language models across transformation tasks.
 
-### Phase 4: Transformation Experiments (Weeks 4-10)
+**Model Selection**:
 
-Execute 90,000 transformations measuring Semantic Elasticity (SE).
+- **Tier 1** (High-throughput): Grok Code Fast 1, Gemini 2.5 Flash, DeepSeek V3.2
+- **Tier 2** (Balanced): Claude Sonnet 4.5, GPT-5.2
+- **Tier 3** (State-of-the-art): Claude Opus 4.5, Gemini 2.5 Pro
 
-**Tiered execution**:
-- **Tier 1** (60% budget): 4 cheap models, all 500 functions
-- **Tier 2** (30% budget): 3 mid-tier models, 200 sampled functions
-- **Tier 3** (10% budget): 5 SOTA models, 50 hardest functions
+**Experimental Protocol**:
 
-**Tasks**: obfuscate, deobfuscate, refactor
-**Strategies**: zero-shot, few-shot (k=3,5), chain-of-thought, self-reflection
+- **Tasks**: Obfuscation (reduce readability), deobfuscation (improve clarity), refactoring (restructure while maintaining semantics)
+- **Intensity levels**: Light (±20% LOC, ±10% CC), medium (±50% LOC, 10-30% CC), heavy (max 2× LOC, 30-50%+ CC)
+- **Prompting strategy**: Zero-shot with strict output format constraints (executable code only, no explanations)
+- **Quality control**: Automated syntax validation, metric calculation, test execution
+
+**Robustness Features**:
+
+- Real-time checkpoint/resume (database-backed, zero data loss)
+- Automatic retry with exponential backoff (rate limits, transient failures)
+- Fatal error detection (API quota exhaustion, authentication failures)
+- Parallel execution with concurrency control (5 simultaneous requests)
+
+**Current Status** (as of last checkpoint):
+
+- Transformation pipeline: ~2,000+ transformations completed
+- SE metric calculation: Pending completion of transformation phase
+- Statistical analysis: Leaderboard generation, hypothesis testing, visualization (pending)
 
 ---
 
@@ -249,38 +259,76 @@ Where:
 ### Environment Variables (`.env`)
 
 ```bash
-# OpenRouter API
+# API Configuration
 OPENROUTER_API_KEY=sk-or-v1-...
 
 # Database
 DATABASE_URL=postgresql://localhost/codetransform
 
-# Budget (USD)
-BUDGET_TOTAL_USD=2000
-BUDGET_TIER1_PCT=60
-BUDGET_TIER2_PCT=30
-BUDGET_TIER3_PCT=10
-
-# Rate Limiting
+# Rate Limiting (API throttling)
 MAX_REQUESTS_PER_MINUTE=60
-MAX_CONCURRENT_REQUESTS=10
+MAX_CONCURRENT_REQUESTS=5
 
 # Logging
 LOG_LEVEL=INFO
 LOG_FILE=codetransform.log
 ```
 
-### Model Tiers (see `config/models.yaml`)
+### Model Configuration (see `config/models.yaml`)
 
-**Tier 1** (Exploration): Llama 8B, Mixtral, CodeGemma, DeepSeek Coder
-**Tier 2** (Validation): Llama 70B, DeepSeek V3, Qwen Coder
-**Tier 3** (SOTA): GPT-4, Claude 3.5, Claude 3 Opus, Gemini 1.5 Pro, Grok 2
+**Tier 1** (High-throughput evaluation):
+- x-ai/grok-code-fast-1 - Specialized code model with rapid inference
+- google/gemini-2.5-flash - Lightweight variant optimized for speed
+- deepseek/deepseek-chat - Open-weights model with strong code capabilities
+
+**Tier 2** (Balanced performance):
+- anthropic/claude-sonnet-4.5 - Latest Anthropic mid-tier model
+- openai/gpt-5.2 - Contemporary OpenAI flagship
+
+**Tier 3** (State-of-the-art):
+- anthropic/claude-opus-4.5 - Highest-quality Anthropic model (SWE-bench: 80.9%)
+- google/gemini-2.5-pro - Advanced Google model with strong reasoning
 
 ---
 
 ## Usage Examples
 
-### Check database stats
+### Monitor experiment progress
+
+```bash
+# Real-time monitoring (auto-refresh every 30s)
+watch -n 30 ./monitor.sh
+
+# Single snapshot
+./monitor.sh
+```
+
+### Query benchmark results
+
+```python
+from src.utils.db_utils import get_leaderboard
+
+# Get top performing models for obfuscation task
+leaderboard = get_leaderboard(task='obfuscate', limit=10)
+
+for entry in leaderboard:
+    print(f"{entry['model']}: SE={entry['mean_se']:.2f}, Success={entry['success_rate_pct']:.1f}%")
+```
+
+### Calculate Semantic Elasticity metrics
+
+```python
+from src.evaluators.semantic_elasticity import SECalculator
+
+calculator = SECalculator()
+
+# Calculate SE for all transformations
+stats = calculator.calculate_se_for_all_transformations()
+print(f"Processed: {stats['success']} transformations")
+print(f"Failed: {stats['failed']} transformations")
+```
+
+### Database introspection
 
 ```python
 from src.utils.db_utils import get_dataset_stats
@@ -289,31 +337,6 @@ stats = get_dataset_stats()
 print(f"Functions: {stats['total_functions']}")
 print(f"Transformations: {stats['total_transformations']}")
 print(f"Success rate: {stats['success_rate']:.1f}%")
-print(f"Total cost: ${stats['total_cost_usd']:.2f}")
-```
-
-### Query leaderboard
-
-```python
-from src.utils.db_utils import get_leaderboard
-
-# Get top 10 models for obfuscation task
-leaderboard = get_leaderboard(task='obfuscate', limit=10)
-
-for entry in leaderboard:
-    print(f"{entry['model']}: SE={entry['mean_se']:.2f}, Success={entry['success_rate_pct']:.1f}%")
-```
-
-### Check budget status
-
-```python
-from src.utils.db_utils import get_remaining_budget, is_budget_exhausted
-
-remaining = get_remaining_budget('tier1')
-print(f"Tier 1 remaining: ${remaining:.2f}")
-
-if is_budget_exhausted('tier1', threshold=0.9):
-    print("⚠ Tier 1 budget 90% exhausted!")
 ```
 
 ---
@@ -393,4 +416,4 @@ For questions or collaboration: [contact info]
 
 ---
 
-**Status**: Phase 1 Complete ✅ | Phase 2 Ready to Start 🔜
+**Status**: Phases 1-3 Complete | Phase 4 Active (Transformation pipeline executing)

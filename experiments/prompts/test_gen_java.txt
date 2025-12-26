@@ -1,0 +1,35 @@
+Generate a comprehensive property-based test suite for the following Java method using JUnit 5 and jqwik.
+
+Method to test:
+```java
+{code}
+```
+
+Requirements:
+1. **Framework**: Use JUnit 5 + jqwik for property-based testing
+2. **Coverage Target**: Achieve ≥80% branch coverage
+3. **Test Categories**:
+   - Property-based tests using @Property annotation
+   - Edge cases (null, empty, boundary values)
+   - Type validation tests
+   - Exception handling tests (@throws annotation)
+4. **Execution Speed**: All tests must complete in <100ms
+5. **Determinism**: Use fixed seed: @ForAll with seed parameter
+6. **Assertions**: Use JUnit assertions (assertEquals, assertTrue, assertThrows)
+
+Test Structure:
+- Package declaration and imports
+- Include the class/method under test (copy it into the test file)
+- Create test class with @TestInstance(Lifecycle.PER_CLASS)
+- Write 5-10 comprehensive @Property test methods
+- Use appropriate Arbitraries (Arbitraries.integers(), strings(), lists(), etc.)
+- Handle both success cases and exception cases
+
+CRITICAL OUTPUT REQUIREMENTS:
+- Return ONLY executable Java test code
+- NO explanations, reasoning, or commentary
+- NO markdown code blocks (no ```)
+- NO preamble like "Here is..." or "The test suite is..."
+- Start directly with the package declaration
+- End with the last closing brace
+- The output must be directly compilable and executable with JUnit 5

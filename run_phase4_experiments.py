@@ -2,9 +2,9 @@
 """
 Phase 4: Run Complete Transformation Experiments
 
-Executes 5,400 transformations:
+Executes 6,300 transformations:
 - 100 functions (stratified by language and complexity)
-- 6 models (2 per tier)
+- 7 models (3 tier1, 2 tier2, 2 tier3)
 - 3 tasks (obfuscate, deobfuscate, refactor)
 - 3 intensity levels (light, medium, heavy)
 """
@@ -118,11 +118,11 @@ async def run_experiments():
     logger.info("=" * 80)
     logger.info("Configuration:")
     logger.info("  - 100 functions (stratified)")
-    logger.info("  - 6 models (2 per tier)")
+    logger.info("  - 7 models (3 tier1, 2 tier2, 2 tier3)")
     logger.info("  - 3 tasks (obfuscate, deobfuscate, refactor)")
     logger.info("  - 3 intensity levels (light, medium, heavy)")
-    logger.info("  - Total: 5,400 transformations")
-    logger.info("  - Budget: $50 estimated")
+    logger.info("  - Total: 6,300 transformations")
+    logger.info("  - Budget limit: $2,000")
     logger.info("=" * 80)
 
     # Select 100 functions
@@ -163,7 +163,7 @@ async def run_experiments():
     logger.info("=" * 80)
 
     # Initialize pipeline with budget limit
-    pipeline = TransformationPipeline(budget_limit_usd=100.0)  # Safety limit
+    pipeline = TransformationPipeline(budget_limit_usd=2000.0)  # $2000 total budget
 
     # Run transformations
     logger.info("\n" + "=" * 80)

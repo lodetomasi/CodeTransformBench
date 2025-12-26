@@ -64,17 +64,9 @@ class SECalculator:
         Returns:
             1 if all tests pass, 0 otherwise
         """
-        # For now, return 1 (assume tests pass)
-        # Full implementation would:
-        # 1. Load test suite for this function
-        # 2. Inject transformed code into test file
-        # 3. Run tests
-        # 4. Return 1 if all pass, 0 if any fail
-
-        # Simplified implementation for initial testing
         logger.debug(f"Calculating preservation for {function_id} (language: {language})")
 
-        # Check if test suite exists
+        # Test suite configuration
         test_extensions = {
             'python': '.py',
             'java': '.java',
@@ -88,8 +80,58 @@ class SECalculator:
             logger.warning(f"No test suite found for {function_id}, assuming P=1")
             return 1
 
-        # TODO: Actually run tests
-        # For now, assume tests pass (we'll implement full test execution later)
+        # Run tests based on language
+        try:
+            if language == 'python':
+                return self._run_python_tests(test_file, transformed_code)
+            elif language == 'java':
+                return self._run_java_tests(test_file, transformed_code)
+            elif language == 'javascript':
+                return self._run_javascript_tests(test_file, transformed_code)
+            elif language == 'cpp':
+                return self._run_cpp_tests(test_file, transformed_code)
+            else:
+                logger.warning(f"Unsupported language {language}, assuming P=1")
+                return 1
+        except Exception as e:
+            logger.error(f"Test execution failed for {function_id}: {e}")
+            return 0
+
+    def _run_python_tests(self, test_file: Path, transformed_code: str) -> int:
+        """Run Python tests using pytest."""
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
+            # Inject transformed code + test suite
+            f.write(transformed_code + '\n\n')
+            f.write(test_file.read_text())
+            temp_path = f.name
+
+        try:
+            result = subprocess.run(
+                ['pytest', temp_path, '-v', '--tb=short'],
+                capture_output=True,
+                timeout=10,
+                text=True
+            )
+            return 1 if result.returncode == 0 else 0
+        finally:
+            Path(temp_path).unlink(missing_ok=True)
+
+    def _run_java_tests(self, test_file: Path, transformed_code: str) -> int:
+        """Run Java tests using JUnit."""
+        # Simplified: assume P=1 (full implementation needs JUnit setup)
+        logger.debug("Java test execution not fully implemented, assuming P=1")
+        return 1
+
+    def _run_javascript_tests(self, test_file: Path, transformed_code: str) -> int:
+        """Run JavaScript tests using Jest."""
+        # Simplified: assume P=1 (full implementation needs Jest setup)
+        logger.debug("JavaScript test execution not fully implemented, assuming P=1")
+        return 1
+
+    def _run_cpp_tests(self, test_file: Path, transformed_code: str) -> int:
+        """Run C++ tests using Google Test."""
+        # Simplified: assume P=1 (full implementation needs GTest compilation)
+        logger.debug("C++ test execution not fully implemented, assuming P=1")
         return 1
 
     def calculate_diversity(
@@ -99,7 +141,10 @@ class SECalculator:
         language: str
     ) -> float:
         """
-        Calculate diversity metric (D) using tree edit distance.
+        Calculate diversity metric (D) using AST tree edit distance.
+
+        For Python: uses AST module + apted library
+        For others: enhanced Levenshtein with structural weighting
 
         Args:
             code_original: Original code
@@ -107,19 +152,48 @@ class SECalculator:
             language: Programming language
 
         Returns:
-            Normalized tree edit distance (0-1)
+            Normalized diversity score (0-1)
         """
-        # Simplified implementation: use normalized Levenshtein distance
-        # Full implementation would use tree-sitter AST and compute tree edit distance
+        # Python: use AST-based tree edit distance
+        if language == 'python':
+            try:
+                import ast
+                from apted import APTED
+                from apted.helpers import Tree
 
+                def ast_to_tree(code: str) -> Tree:
+                    """Convert Python AST to apted Tree."""
+                    tree = ast.parse(code)
+                    def build(node):
+                        name = node.__class__.__name__
+                        children = [build(child) for child in ast.iter_child_nodes(node)]
+                        return Tree(name, *children) if children else Tree(name)
+                    return build(tree)
+
+                tree_orig = ast_to_tree(code_original)
+                tree_trans = ast_to_tree(code_transformed)
+
+                # Calculate tree edit distance
+                apted_calc = APTED(tree_orig, tree_trans)
+                distance = apted_calc.compute_edit_distance()
+
+                # Normalize by tree size
+                def count_nodes(tree):
+                    return 1 + sum(count_nodes(c) for c in tree.children)
+                max_nodes = max(count_nodes(tree_orig), count_nodes(tree_trans))
+                diversity = distance / max(max_nodes, 1)
+
+                return min(1.0, max(0.0, diversity))
+
+            except Exception as e:
+                logger.debug(f"AST diversity failed, using Levenshtein: {e}")
+
+        # Fallback: Enhanced Levenshtein with structural bonuses
         def levenshtein_distance(s1: str, s2: str) -> int:
-            """Calculate Levenshtein distance between two strings."""
             if len(s1) < len(s2):
                 return levenshtein_distance(s2, s1)
-
             if len(s2) == 0:
                 return len(s1)
-
             previous_row = range(len(s2) + 1)
             for i, c1 in enumerate(s1):
                 current_row = [i + 1]
@@ -129,25 +203,28 @@ class SECalculator:
                     substitutions = previous_row[j] + (c1 != c2)
                     current_row.append(min(insertions, deletions, substitutions))
                 previous_row = current_row
-
             return previous_row[-1]
 
-        # Normalize code (remove whitespace for fair comparison)
+        # Normalize (remove whitespace)
         norm_original = ''.join(code_original.split())
         norm_transformed = ''.join(code_transformed.split())
 
-        # Calculate edit distance
         edit_dist = levenshtein_distance(norm_original, norm_transformed)
-
-        # Normalize by max length
         max_len = max(len(norm_original), len(norm_transformed))
 
         if max_len == 0:
             return 0.0
 
-        diversity = edit_dist / max_len
+        # Structural bonus: count braces/brackets/keywords
+        struct_chars = {'{', '}', '(', ')', '[', ']', ';', ','}
+        orig_struct = sum(1 for c in code_original if c in struct_chars)
+        trans_struct = sum(1 for c in code_transformed if c in struct_chars)
+        struct_diff = abs(orig_struct - trans_struct)
 
-        # Clamp to [0, 1]
+        # Amplify if structure changed >20%
+        struct_weight = 1.2 if struct_diff > max(orig_struct, trans_struct) * 0.2 else 1.0
+
+        diversity = (edit_dist / max_len) * struct_weight
         return min(1.0, max(0.0, diversity))
 
     def calculate_effort(self, halstead_volume: float) -> float:

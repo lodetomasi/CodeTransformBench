@@ -1,0 +1,36 @@
+Generate a comprehensive property-based test suite for the following C++ function using Google Test and RapidCheck.
+
+Function to test:
+```cpp
+{code}
+```
+
+Requirements:
+1. **Framework**: Use Google Test (gtest) + RapidCheck for property-based testing
+2. **Coverage Target**: Achieve ≥80% branch coverage
+3. **Test Categories**:
+   - Property-based tests using RC_GTEST_PROP macro
+   - Edge cases (null pointers, empty containers, boundary values)
+   - Type validation tests
+   - Exception handling tests (EXPECT_THROW, ASSERT_THROW)
+4. **Execution Speed**: All tests must complete in <100ms
+5. **Determinism**: Use RapidCheck with fixed seed configuration
+6. **Assertions**: Use gtest macros (EXPECT_EQ, ASSERT_TRUE, EXPECT_THROW)
+
+Test Structure:
+- Include necessary headers (#include <gtest/gtest.h>, #include <rapidcheck.h>)
+- Include the function under test (copy function definition)
+- Create test fixture class if needed
+- Write 5-10 comprehensive TEST or RC_GTEST_PROP test cases
+- Use appropriate generators (rc::gen::arbitrary<int>(), gen::container(), etc.)
+- Handle both success cases and exception cases
+- Add main() function: int main(int argc, char **argv) { testing::InitGoogleTest(&argc, argv); return RUN_ALL_TESTS(); }
+
+CRITICAL OUTPUT REQUIREMENTS:
+- Return ONLY executable C++ test code
+- NO explanations, reasoning, or commentary
+- NO markdown code blocks (no ```)
+- NO preamble like "Here is..." or "The test suite is..."
+- Start directly with #include statements
+- End with the closing brace of main() function
+- The output must be directly compilable with: g++ -std=c++17 <filename>.cpp -lgtest -lrapidcheck -pthread
