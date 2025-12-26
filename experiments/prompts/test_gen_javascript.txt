@@ -1,0 +1,27 @@
+Generate comprehensive property-based tests for the following JavaScript function using Jest and fast-check.
+
+Function to test:
+```javascript
+{code}
+```
+
+Requirements:
+1. **Edge Cases**: Test empty inputs, null/undefined, negative numbers, boundary values (0, 1, -1, Number.MAX_SAFE_INTEGER/MIN_SAFE_INTEGER)
+2. **Properties**: If applicable, test mathematical properties like commutativity, associativity
+3. **Invariants**: Verify output constraints, type consistency, error handling
+4. **Randomized Testing**: Use fast-check fc.* arbitraries to generate 100+ random test inputs
+5. **Fixed Seed**: Use fc.configureGlobal({{seed: 42}}) for reproducibility
+6. **Self-Contained**: No external files, network calls, or database connections
+7. **Fast Execution**: All tests should complete in <100ms total
+8. **Dependencies**: Only use Jest, fast-check, and standard library
+
+Test structure:
+- Use descriptive test names (describe/it blocks)
+- Add comments explaining what each test verifies
+- Use fc.assert(fc.property(...)) for property-based tests
+- Use regular Jest assertions for edge cases
+- Group related tests in describe blocks
+
+Output ONLY the complete test code (no explanations, no markdown formatting).
+The code should be ready to save as a .test.js file and run with Jest.
+Include all necessary require/import statements.

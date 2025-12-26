@@ -1,0 +1,25 @@
+Generate comprehensive property-based tests for the following Python function using pytest and hypothesis.
+
+Function to test:
+```python
+{code}
+```
+
+Requirements:
+1. **Edge Cases**: Test empty inputs, None values, negative numbers, boundary values (0, 1, -1, max/min integers)
+2. **Properties**: If applicable, test mathematical properties like commutativity, associativity, distributivity
+3. **Invariants**: Verify output constraints, type consistency, state preservation
+4. **Randomized Testing**: Use hypothesis.strategies to generate 100+ random test inputs
+5. **Fixed Seed**: Use @hypothesis.seed(42) for reproducibility
+6. **Self-Contained**: No external files, network calls, or database connections
+7. **Fast Execution**: All tests should complete in <100ms total
+8. **Import Requirements**: Only use standard library and pytest/hypothesis
+
+Test structure:
+- Use descriptive test function names (test_<function_name>_<scenario>)
+- Add docstrings explaining what each test verifies
+- Group related tests together
+- Use pytest.mark.parametrize for edge cases
+
+Output ONLY the complete test code (no explanations, no markdown formatting).
+The code should be ready to save as a .py file and run with pytest.

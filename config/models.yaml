@@ -1,0 +1,55 @@
+# Model configurations for CodeTransformBench
+# Organized by tier based on cost and capabilities
+# All models accessible via OpenRouter API
+
+tier1:
+  # Budget: 40% (€800)
+  # Purpose: Baseline and code-specialized models
+  # Cost: ~€0.0002-0.0003 per 1K tokens
+
+  - id: meta-llama/llama-3.1-8b-instruct
+    name: Llama 3.1 8B
+    cost_per_1k_tokens: 0.0002
+    description: Fast, cost-effective open model for baseline comparisons
+
+  - id: deepseek/deepseek-coder-33b-instruct
+    name: DeepSeek Coder 33B
+    cost_per_1k_tokens: 0.0003
+    description: Code-focused model, strong at transformations
+
+tier2:
+  # Budget: 30% (€600)
+  # Purpose: Powerful mid-tier models for validation
+  # Cost: ~€0.0015-0.0018 per 1K tokens
+
+  - id: meta-llama/llama-3.1-70b-instruct
+    name: Llama 3.1 70B
+    cost_per_1k_tokens: 0.0015
+    description: Larger Llama variant, better reasoning
+
+  - id: qwen/qwen-2.5-coder-32b-instruct
+    name: Qwen 2.5 Coder 32B
+    cost_per_1k_tokens: 0.0018
+    description: Alibaba's code model, strong multi-language support
+
+tier3:
+  # Budget: 30% (€600)
+  # Purpose: SOTA scores and quality ceiling
+  # Cost: ~€0.01-0.015 per 1K tokens
+
+  - id: anthropic/claude-3.5-sonnet
+    name: Claude 3.5 Sonnet
+    cost_per_1k_tokens: 0.015
+    description: Anthropic's latest, strong code understanding
+
+  - id: openai/gpt-4-turbo
+    name: GPT-4 Turbo
+    cost_per_1k_tokens: 0.01
+    description: OpenAI flagship, excellent at complex transformations
+
+# Note: Actual costs may vary based on:
+# - Input vs output tokens (some models charge differently)
+# - OpenRouter markup (~10%)
+# - Promotions or pricing changes
+#
+# Monitor real costs via cost_tracking table and adjust if needed
