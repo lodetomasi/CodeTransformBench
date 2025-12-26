@@ -343,24 +343,24 @@ print(f"Success rate: {stats['success_rate']:.1f}%")
 
 ## Research Questions
 
-This benchmark answers 5 key questions:
+This benchmark investigates 5 core questions about LLM code transformation capabilities:
 
-1. **RQ1**: Which models excel at code transformation?
-   - Hypothesis: GPT-4 and Claude 3.5 achieve SE >8.0
+1. **RQ1**: Which contemporary models achieve highest semantic elasticity?
+   - Hypothesis: Claude Opus 4.5 and Gemini 2.5 Pro outperform all models across tasks
 
-2. **RQ2**: Does prompt engineering matter?
-   - Hypothesis: Few-shot k=5 improves SE by ≥2 points
+2. **RQ2**: How does transformation intensity affect semantic preservation?
+   - Hypothesis: Heavy transformations (50%+ structural change) reduce preservation by 30-40% compared to light transformations
 
-3. **RQ3**: Are some languages easier to transform?
-   - Hypothesis: Python SE > C++ SE by 60%
+3. **RQ3**: Are some programming languages more amenable to transformation?
+   - Hypothesis: Python achieves 40-60% higher SE than C++ due to dynamic typing and simpler syntax
 
-4. **RQ4**: How does complexity affect transformation?
-   - Hypothesis: SE drops sharply at CC≈25
+4. **RQ4**: Does cyclomatic complexity limit transformation quality?
+   - Hypothesis: SE degrades sharply for functions with CC > 25 (threshold effect)
 
-5. **RQ5**: What's the cost-quality tradeoff?
-   - Hypothesis: DeepSeek-V3 matches GPT-4 at 11% cost
+5. **RQ5**: How do model capabilities scale with transformation difficulty?
+   - Hypothesis: Performance gap between SOTA (Claude Opus) and high-throughput models (Grok, Gemini Flash) widens on heavy transformations
 
-See [ricerca-domande.md](ricerca-domande.md) for full hypotheses and statistical tests.
+Statistical analysis: Paired t-tests, ANOVA across model tiers, correlation analysis (CC vs SE), stratified sampling validation.
 
 ---
 
