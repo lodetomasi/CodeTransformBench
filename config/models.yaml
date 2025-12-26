@@ -12,10 +12,10 @@ tier1:
     cost_per_1k_tokens: 0.0002
     description: Fast, cost-effective open model for baseline comparisons
 
-  - id: deepseek/deepseek-coder-33b-instruct
-    name: DeepSeek Coder 33B
-    cost_per_1k_tokens: 0.0003
-    description: Code-focused model, strong at transformations
+  - id: mistralai/mistral-7b-instruct
+    name: Mistral 7B Instruct
+    cost_per_1k_tokens: 0.00025
+    description: Efficient open model, good code capabilities
 
 tier2:
   # Budget: 30% (€600)

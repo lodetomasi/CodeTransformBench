@@ -1,0 +1,41 @@
+Deobfuscate the following {language} code with HEAVY intensity to make it maximally readable and clear while preserving its exact functionality.
+
+Original code:
+```{language}
+{code}
+```
+
+HEAVY Deobfuscation Requirements:
+1. **Preserve Semantics**: The deobfuscated code MUST produce identical outputs for all inputs
+2. **Maximum Clarity**: Apply ALL these techniques aggressively:
+   - Use highly descriptive, self-documenting variable and function names
+   - Add comprehensive documentation:
+     * Docstrings/comments for overall purpose
+     * Inline comments explaining non-obvious logic
+     * Comments describing intent, not just mechanics
+   - Completely restructure for optimal readability:
+     * Replace ALL complex expressions with clear, step-by-step operations
+     * Convert nested ternary operators to explicit if-else blocks
+     * Extract ALL repeated logic into well-named helper functions
+     * Apply standard design patterns where appropriate
+     * Organize code into logical sections with clear separation
+   - Simplify control flow to be as linear and obvious as possible
+   - Add proper error handling if it improves clarity (but preserve original behavior)
+   - Use language-specific best practices and idioms
+   - Format according to language style guides
+3. **Maintain Validity**: Code must compile and run without errors
+4. **Professional Quality**: Code should look like it was written by an experienced developer following best practices
+5. **Length Constraint**: Maximum 2× original lines of code. Add clarity through structure and naming, not excessive comments
+
+Target: Cyclomatic complexity should decrease by 30-50%
+
+
+CRITICAL OUTPUT REQUIREMENTS:
+- Return ONLY executable code
+- NO explanations, reasoning, or commentary
+- NO markdown code blocks (no ```)
+- NO <think> tags or thinking process
+- NO preamble like "Here is..." or "The code is..."
+- Start directly with the first line of code
+- End with the last line of code
+- The output must be directly executable in a {language} interpreter

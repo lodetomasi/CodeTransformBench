@@ -191,7 +191,7 @@ class TransformationPipeline:
                     'transformed_code': transformed_code,
                     'cyclomatic_complexity': metrics['cyclomatic_complexity'],
                     'halstead_volume': metrics['halstead_volume'],
-                    'cost_usd': result['cost'],
+                    'cost_usd': result['cost_usd'],
                     'latency_ms': latency_ms,
                     'tokens_input': result['tokens_input'],
                     'tokens_output': result['tokens_output']
@@ -337,6 +337,11 @@ class TransformationPipeline:
                 if result:
                     # Save to database immediately (checkpoint)
                     try:
+                        # Get original function CC for delta_cc calculation
+                        cc_original = func['cyclomatic_complexity']
+                        cc_transformed = result['cyclomatic_complexity']
+                        delta_cc = abs(cc_transformed - cc_original)
+
                         with get_db_session() as session:
                             transformation = Transformation(
                                 function_id=result['function_id'],
@@ -344,8 +349,7 @@ class TransformationPipeline:
                                 task=result['task'],
                                 strategy=result['strategy'],
                                 transformed_code=result['transformed_code'],
-                                cyclomatic_complexity=result['cyclomatic_complexity'],
-                                halstead_volume=result['halstead_volume'],
+                                delta_cc=delta_cc,
                                 cost_usd=result['cost_usd'],
                                 latency_ms=result['latency_ms'],
                                 tokens_input=result['tokens_input'],

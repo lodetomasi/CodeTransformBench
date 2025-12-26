@@ -1,0 +1,34 @@
+Obfuscate the following {language} code with MEDIUM intensity to make it moderately harder to understand while preserving its exact functionality.
+
+Original code:
+```{language}
+{code}
+```
+
+MEDIUM Obfuscation Requirements:
+1. **Preserve Semantics**: The obfuscated code MUST produce identical outputs for all inputs
+2. **Moderate Changes**: Apply these techniques:
+   - Rename ALL variables to meaningless names (x1, x2, tmp, arr, val, etc.)
+   - Remove ALL comments and docstrings
+   - Restructure logic using equivalent but less clear patterns:
+     * Replace clear if-else with ternary operators where possible
+     * Combine or split statements to obscure intent
+     * Add intermediate variables for simple operations
+   - Reorder independent statements to break logical grouping
+   - Change loop styles (for ↔ while) where semantically equivalent
+3. **Maintain Validity**: Code must compile and run without errors
+4. **Keep recognizable**: Overall function structure should still be visible
+5. **Length Constraint**: Code may be up to 50% longer than original, but avoid bloat
+
+Target: Cyclomatic complexity may increase by 20-50%
+
+
+CRITICAL OUTPUT REQUIREMENTS:
+- Return ONLY executable code
+- NO explanations, reasoning, or commentary
+- NO markdown code blocks (no ```)
+- NO <think> tags or thinking process
+- NO preamble like "Here is..." or "The code is..."
+- Start directly with the first line of code
+- End with the last line of code
+- The output must be directly executable in a {language} interpreter

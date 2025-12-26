@@ -1,0 +1,35 @@
+Refactor the following {language} code with LIGHT intensity to make minimal improvements while preserving its exact functionality.
+
+Original code:
+```{language}
+{code}
+```
+
+LIGHT Refactoring Requirements:
+1. **Preserve Semantics**: The refactored code MUST produce identical outputs for all inputs
+2. **Minimal Improvements**: Apply ONLY these basic changes:
+   - Rename variables and functions to more descriptive names
+   - Fix inconsistent naming conventions
+   - Improve code formatting and indentation
+   - Remove obvious code duplication by extracting small helper functions
+   - Keep overall structure unchanged
+3. **DO NOT**:
+   - Apply design patterns
+   - Restructure algorithm logic
+   - Change control flow
+   - Add new abstractions or classes
+4. **Maintain Validity**: Code must compile and run without errors
+5. **Length Constraint**: Keep code length similar to original (±20% lines of code)
+
+Target: Cyclomatic complexity should remain similar (±10%)
+
+
+CRITICAL OUTPUT REQUIREMENTS:
+- Return ONLY executable code
+- NO explanations, reasoning, or commentary
+- NO markdown code blocks (no ```)
+- NO <think> tags or thinking process
+- NO preamble like "Here is..." or "The code is..."
+- Start directly with the first line of code
+- End with the last line of code
+- The output must be directly executable in a {language} interpreter

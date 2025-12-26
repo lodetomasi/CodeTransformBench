@@ -1,0 +1,33 @@
+Obfuscate the following {language} code with LIGHT intensity to make it slightly harder to understand while preserving its exact functionality.
+
+Original code:
+```{language}
+{code}
+```
+
+LIGHT Obfuscation Requirements:
+1. **Preserve Semantics**: The obfuscated code MUST produce identical outputs for all inputs
+2. **Minimal Changes**: Apply ONLY these techniques:
+   - Rename variables to short, non-descriptive names (a, b, x1, tmp, etc.)
+   - Remove ALL comments and docstrings
+   - Minimize whitespace (but keep code valid)
+   - Keep overall structure and logic flow unchanged
+3. **DO NOT**:
+   - Restructure control flow
+   - Add unnecessary operations
+   - Inline or extract functions
+   - Change algorithm structure
+4. **Maintain Validity**: Code must compile and run without errors
+5. **Length Constraint**: Keep code length similar to original (±20% lines of code)
+
+Target: Cyclomatic complexity should remain similar to original (±10%)
+
+CRITICAL OUTPUT REQUIREMENTS:
+- Return ONLY executable code
+- NO explanations, reasoning, or commentary
+- NO markdown code blocks (no ```)
+- NO <think> tags or thinking process
+- NO preamble like "Here is..." or "The code is..."
+- Start directly with the first line of code
+- End with the last line of code
+- The output must be directly executable in a {language} interpreter

@@ -1,0 +1,34 @@
+Deobfuscate the following {language} code with LIGHT intensity to make it slightly more readable while preserving its exact functionality.
+
+Original code:
+```{language}
+{code}
+```
+
+LIGHT Deobfuscation Requirements:
+1. **Preserve Semantics**: The deobfuscated code MUST produce identical outputs for all inputs
+2. **Basic Cleanup**: Apply ONLY these minimal improvements:
+   - Rename variables to meaningful, descriptive names based on their purpose
+   - Add basic comments explaining what each major section does
+   - Improve whitespace and indentation for readability
+   - Keep overall structure unchanged
+3. **DO NOT**:
+   - Restructure control flow or logic
+   - Extract or inline functions
+   - Change algorithm implementation
+   - Add error handling or validation
+4. **Maintain Validity**: Code must compile and run without errors
+5. **Length Constraint**: Keep code length similar to original (±20% lines of code)
+
+Target: Cyclomatic complexity should remain identical to original
+
+
+CRITICAL OUTPUT REQUIREMENTS:
+- Return ONLY executable code
+- NO explanations, reasoning, or commentary
+- NO markdown code blocks (no ```)
+- NO <think> tags or thinking process
+- NO preamble like "Here is..." or "The code is..."
+- Start directly with the first line of code
+- End with the last line of code
+- The output must be directly executable in a {language} interpreter

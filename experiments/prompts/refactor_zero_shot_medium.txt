@@ -1,0 +1,33 @@
+Refactor the following {language} code with MEDIUM intensity to improve its structure and readability while preserving its exact functionality.
+
+Original code:
+```{language}
+{code}
+```
+
+MEDIUM Refactoring Requirements:
+1. **Preserve Semantics**: The refactored code MUST produce identical outputs for all inputs
+2. **Moderate Improvements**: Apply these techniques:
+   - Use clear, descriptive naming following language conventions
+   - Extract repeated logic into well-named helper functions
+   - Apply basic design patterns where obviously beneficial (e.g., early returns, guard clauses)
+   - Simplify complex conditionals and expressions
+   - Reorganize code into logical sections
+   - Improve error handling without changing behavior
+   - Remove unnecessary complexity
+3. **Maintain Validity**: Code must compile and run without errors
+4. **Balance**: Improve quality without over-engineering
+5. **Length Constraint**: Code may be up to 50% longer than original, but keep it concise
+
+Target: Cyclomatic complexity may decrease by 10-30%
+
+
+CRITICAL OUTPUT REQUIREMENTS:
+- Return ONLY executable code
+- NO explanations, reasoning, or commentary
+- NO markdown code blocks (no ```)
+- NO <think> tags or thinking process
+- NO preamble like "Here is..." or "The code is..."
+- Start directly with the first line of code
+- End with the last line of code
+- The output must be directly executable in a {language} interpreter

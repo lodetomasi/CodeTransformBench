@@ -1,0 +1,36 @@
+Refactor the following {language} code with HEAVY intensity to achieve professional-quality, maintainable code while preserving its exact functionality.
+
+Original code:
+```{language}
+{code}
+```
+
+HEAVY Refactoring Requirements:
+1. **Preserve Semantics**: The refactored code MUST produce identical outputs for all inputs
+2. **Comprehensive Improvements**: Apply ALL these techniques aggressively:
+   - Use highly descriptive, self-documenting names
+   - Apply appropriate design patterns (Strategy, Factory, Template Method, etc.)
+   - Extract ALL repeated logic into reusable functions
+   - Simplify complex algorithms while maintaining same time complexity
+   - Use language-specific idioms and best practices
+   - Add proper separation of concerns
+   - Optimize code structure for readability and maintainability
+   - Add comprehensive documentation (docstrings, comments for non-obvious logic)
+   - Handle edge cases gracefully without changing original behavior
+   - Follow language style guides strictly
+3. **Maintain Validity**: Code must compile and run without errors
+4. **Professional Quality**: Code should be production-ready, well-architected, and maintainable
+5. **Length Constraint**: Maximum 2× original lines of code. Focus on structural improvements and clear naming over excessive documentation
+
+Target: Cyclomatic complexity should decrease by 30-50%
+
+
+CRITICAL OUTPUT REQUIREMENTS:
+- Return ONLY executable code
+- NO explanations, reasoning, or commentary
+- NO markdown code blocks (no ```)
+- NO <think> tags or thinking process
+- NO preamble like "Here is..." or "The code is..."
+- Start directly with the first line of code
+- End with the last line of code
+- The output must be directly executable in a {language} interpreter

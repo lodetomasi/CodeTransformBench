@@ -1,0 +1,35 @@
+Deobfuscate the following {language} code with MEDIUM intensity to make it moderately more readable while preserving its exact functionality.
+
+Original code:
+```{language}
+{code}
+```
+
+MEDIUM Deobfuscation Requirements:
+1. **Preserve Semantics**: The deobfuscated code MUST produce identical outputs for all inputs
+2. **Moderate Cleanup**: Apply these improvements:
+   - Rename ALL variables to clear, descriptive, domain-appropriate names
+   - Add detailed comments explaining logic and purpose
+   - Restructure for clarity:
+     * Replace nested ternary operators with clear if-else statements
+     * Simplify complex expressions by introducing well-named intermediate variables
+     * Extract repeated logic into small helper functions
+     * Reorder statements into logical groups with comments
+   - Improve loop clarity (e.g., while → for where more readable)
+   - Remove unnecessary intermediate variables that don't add clarity
+3. **Maintain Validity**: Code must compile and run without errors
+4. **Balance**: Make code significantly clearer without over-engineering
+5. **Length Constraint**: Code may be up to 50% longer than original for clarity, but avoid excessive verbosity
+
+Target: Cyclomatic complexity may decrease by 10-30%
+
+
+CRITICAL OUTPUT REQUIREMENTS:
+- Return ONLY executable code
+- NO explanations, reasoning, or commentary
+- NO markdown code blocks (no ```)
+- NO <think> tags or thinking process
+- NO preamble like "Here is..." or "The code is..."
+- Start directly with the first line of code
+- End with the last line of code
+- The output must be directly executable in a {language} interpreter

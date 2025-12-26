@@ -1,0 +1,38 @@
+Obfuscate the following {language} code with HEAVY intensity to make it maximally harder to understand while preserving its exact functionality.
+
+Original code:
+```{language}
+{code}
+```
+
+HEAVY Obfuscation Requirements:
+1. **Preserve Semantics**: The obfuscated code MUST produce identical outputs for all inputs
+2. **Maximum Obfuscation**: Apply ALL these techniques aggressively:
+   - Rename ALL identifiers to cryptic, meaningless names (x1, x2, a, b, tmp, arr, val, etc.)
+   - Remove ALL comments and docstrings
+   - Heavily restructure control flow:
+     * Replace if-else chains with nested ternary operators
+     * Convert loops to recursive functions or vice versa where possible
+     * Combine multiple operations into single complex expressions
+     * Add many intermediate variables for trivial operations
+   - Inline small functions into main logic OR extract single lines into separate functions
+   - Reorder all independent statements to maximize confusion
+   - Replace clear operators with equivalent but obscure alternatives
+   - Add dead code branches that never execute but complicate analysis
+   - Use bitwise operations where semantically equivalent to arithmetic
+3. **Maintain Validity**: Code must compile and run without errors
+4. **Maximize Complexity**: Aim to significantly increase cyclomatic complexity
+5. **Length Constraint**: Maximum 2× original lines of code. Be thorough but concise - no unnecessary bloat
+
+Target: Cyclomatic complexity should increase by 50-100% or more
+
+
+CRITICAL OUTPUT REQUIREMENTS:
+- Return ONLY executable code
+- NO explanations, reasoning, or commentary
+- NO markdown code blocks (no ```)
+- NO <think> tags or thinking process
+- NO preamble like "Here is..." or "The code is..."
+- Start directly with the first line of code
+- End with the last line of code
+- The output must be directly executable in a {language} interpreter
